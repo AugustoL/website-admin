@@ -15,8 +15,12 @@ Make sure that the user on the db has write/read permissions.
 
 ## Run the app
 
-By default the app is configured to run over port 3010
+Install the dependencies first:
 ```
-sudo node server.js
+npm install
+```
+Then run the app, by default the app is configured to run over port 3010:
+```
+node server.js
 ```
 Go to localhost:3010 and you will see the admin app.
