@@ -182,13 +182,13 @@ footer a:hover{
 
 /* Admin */
 .colum-index{
-  max-width: 10px;
+  max-width: 5px;
 }
 .colum-date{
-  max-width: 80px;
+  max-width: 15px;
 }
 .colum-actions{
-  max-width: 100px;
+  max-width: 25px;
 }
 
 /* Editor */
