@@ -1,6 +1,6 @@
 # Website-admin
 
-This aplication is built to funcion with the [Website App](https://github.com/AugustoL/website), point this app to the same db that you use on the website and you will eb able to manage your posts and images on the website.
+This application is built to work with the [Website App](https://github.com/AugustoL/website), point this app to the same db that you use on the website and you will be able to manage your posts and images on the website.
 
 ## Config File
 
