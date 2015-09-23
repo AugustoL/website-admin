@@ -1,0 +1,107 @@
+<navbar></navbar>
+<div class="container">
+	<div class="row margin-row text-center box">
+		<h3>{{words.images}}</h3>
+        <div class ="col-sm-3 text-center" ng-repeat="image in images track by $index">
+            <div class="thumbnail">
+            	<h5><input type="text" class="form-control" ng-init="image.nameImg = image.name" ng-model="image.nameImg"></h5>
+                <img ng-src="/getImage?name={{image.name}}">
+                <h5><a ng-click="deleteImage(image.name)" class="cursor-pointer">{{words.delete}}</a> <a ng-click="changeNameImg(image._id,image.nameImg)" class="cursor-pointer">{{words.changeName}}</a></h5>
+            </div>
+        </div>
+    </div>
+	<div class="row">
+		<div class="col-sm-12 text-center box">
+			<form method="POST">
+				<div flow-file-added="!!{png:1,jpg:1}[$file.getExtension()]" flow-files-submitted="$flow.upload()" flow-init class="ng-scope" flow-name="images" flow-file-success="addImg()">
+	                <div ng-class="dropClass" flow-drop="" class="drop text-center margin-row">
+	                    <span flow-btn="" class="btn btn-default">Upload Image<input type="file" style="visibility: hidden; position: absolute;" multiple="multiple"></span>
+	                    <span ng-show="$flow.supportDirectory" flow-directory="" flow-btn="" class="btn btn-default ng-hide" >{{words.selectOrDrag}}<input type="file" style="visibility: hidden; position: absolute;" multiple="multiple" webkitdirectory="webkitdirectory" ></span>
+	                    
+	                </div>
+	                <div class="row margin-row" ng-if="images.files[0]">
+	                    <div class="gallery-box ng-scope">
+	                        <span class="title ng-binding">{{images.files[0].name}}</span>
+	                        <div class="thumbnail">
+	                            <img flow-img="images.files[0]" img-name="{{images.files[0].name}}" id="img1">
+	                        </div>
+	                        <div ng-class="{active: images.files[0].isUploading()}" class="progress progress-striped">
+	                            <div ng-style="{width: (images.files[0].progress() * 100) + '%'}" aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" role="progressbar" class="progress-bar" style="width: 100%;">
+	                                <span class="sr-only ng-binding">1% Complete</span>
+	                            </div>
+	                        </div>
+	                        <div class="btn-group">
+	                            <a ng-click="images.files[0].cancel()" class="btn btn-xs btn-danger">{{words.delete}}</a>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row margin-row" ng-if="images.files[1]">
+	                    <div class="gallery-box ng-scope">
+	                        <span class="title ng-binding">{{images.files[1].name}}</span>
+	                        <div class="thumbnail">
+	                            <img flow-img="images.files[1]" img-name="{{images.files[1].name}}" id="img2">
+	                        </div>
+	                        <div ng-class="{active: images.files[1].isUploading()}" class="progress progress-striped">
+	                            <div ng-style="{width: (images.files[1].progress() * 100) + '%'}" aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" role="progressbar" class="progress-bar" style="width: 100%;">
+	                                <span class="sr-only ng-binding">1% Complete</span>
+	                            </div>
+	                        </div>
+	                        <div class="btn-group">
+	                            <a ng-click="images.files[1].cancel()" class="btn btn-xs btn-danger">{{words.delete}}</a>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row margin-row" ng-if="images.files[2]">
+	                    <div class="gallery-box ng-scope">
+	                        <span class="title ng-binding">{{images.files[2].name}}</span>
+	                        <div class="thumbnail">
+	                            <img flow-img="images.files[2]" img-name="{{images.files[2].name}}" id="img3">
+	                        </div>
+	                        <div ng-class="{active: images.files[2].isUploading()}" class="progress progress-striped">
+	                            <div ng-style="{width: (images.files[2].progress() * 100) + '%'}" aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" role="progressbar" class="progress-bar" style="width: 100%;">
+	                                <span class="sr-only ng-binding">1% Complete</span>
+	                            </div>
+	                        </div>
+	                        <div class="btn-group">
+	                            <a ng-click="images.files[2].cancel()" class="btn btn-xs btn-danger">{{words.delete}}</a>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row margin-row" ng-if="images.files[3]">
+	                    <div class="gallery-box ng-scope">
+	                        <span class="title ng-binding">{{images.files[3].name}}</span>
+	                        <div class="thumbnail">
+	                            <img flow-img="images.files[3]" img-name="{{images.files[3].name}}" id="img4">
+	                        </div>
+	                        <div ng-class="{active: images.files[3].isUploading()}" class="progress progress-striped">
+	                            <div ng-style="{width: (images.files[3].progress() * 100) + '%'}" aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" role="progressbar" class="progress-bar" style="width: 100%;">
+	                                <span class="sr-only ng-binding">1% Complete</span>
+	                            </div>
+	                        </div>
+	                        <div class="btn-group">
+	                            <a ng-click="images.files[3].cancel()" class="btn btn-xs btn-danger">{{words.delete}}</a>
+	                        </div>
+	                    </div>
+	                </div>
+	                <div class="row margin-row" ng-if="images.files[4]">
+	                    <div class="gallery-box ng-scope">
+	                        <span class="title ng-binding">{{images.files[4].name}}</span>
+	                        <div class="thumbnail">
+	                            <img flow-img="images.files[4]" img-name="{{images.files[4].name}}" id="img5">
+	                        </div>
+	                        <div ng-class="{active: images.files[4].isUploading()}" class="progress progress-striped">
+	                            <div ng-style="{width: (images.files[4].progress() * 100) + '%'}" aria-valuemax="100" aria-valuemin="0" aria-valuenow="100" role="progressbar" class="progress-bar" style="width: 100%;">
+	                                <span class="sr-only ng-binding">1% Complete</span>
+	                            </div>
+	                        </div>
+	                        <div class="btn-group">
+	                            <a ng-click="images.files[4].cancel()" class="btn btn-xs btn-danger">{{words.delete}}</a>
+	                        </div>
+	                    </div>
+	                </div>
+	            </div>
+	            <h3 class="text-center"><button class="btn" id="uploadButton" >{{words.upload}}</button></h3>
+            </form>
+        </div>
+    </div>
+</div>

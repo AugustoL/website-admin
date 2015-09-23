@@ -1,0 +1,3 @@
+logs/*.html
+node_modules
+config.js

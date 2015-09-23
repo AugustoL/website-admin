@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html ng-app="ALapp">
+    <head>
+        <base href="/">
+        <title>AugustoLemble</title>
+        <meta name="author" content="Augusto Lemble">
+        <meta name="description" content="Personal website with my works, music, journeys, etc.">
+        <meta name="keywords" content="Augusto Lemble">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="shortcut icon" href="/img/handWhite.ico" type="image/x-icon">
+        <!-- CSS and LESS -->
+        <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap.css">
+        <link rel="stylesheet" href="/libs/bootstrap/dist/css/bootstrap-theme.css">
+        <link rel="stylesheet" href="/libs/font-awesome/css/font-awesome.css">
+        <link rel="stylesheet" href="/css/social-buttons.css">
+        <link rel="stylesheet" href="/css/styles.css">
+        <!-- LIBS -->
+        <script type="text/javascript" src="/libs/jquery/dist/jquery.js"></script>
+        <script type="text/javascript" src="/libs/bootstrap/dist/js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="/libs/angular/angular.js"></script>
+        <script type="text/javascript" src="/libs/angular-local-storage/dist/angular-local-storage.js"></script>
+        <script type="text/javascript" src="/libs/angular-route/angular-route.js"></script>
+        <script type="text/javascript" src="/libs/ng-flow/dist/ng-flow-standalone.js"></script>
+        <!-- LANGUAGES -->
+        <script type="text/javascript" src="/languages.js"></script> 
+        <!-- ANGULAR -->
+        <script type="text/javascript" src="/angular/appCore.js"></script>
+        <script type="text/javascript" src="/angular/directives/navbar.js"></script>
+        <script type="text/javascript" src="/angular/directives/image.js"></script>
+        <script type="text/javascript" src="/angular/services/userService.js"></script> 
+        <script type="text/javascript" src="/angular/services/sessionService.js"></script>
+        <script type="text/javascript" src="/angular/controllers/navBarController.js"></script>
+        <script type="text/javascript" src="/angular/controllers/adminController.js"></script>
+        <script type="text/javascript" src="/angular/controllers/createController.js"></script>
+        <script type="text/javascript" src="/angular/controllers/imagesController.js"></script>
+        <script type="text/javascript" src="/angular/controllers/editController.js"></script>
+        <script type="text/javascript" src="/angular/routeProvider.js"></script>  
+    </head>
+    <body>
+        <script>!function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0],p=/^http:/.test(d.location)?'http':'https';if(!d.getElementById(id)){js=d.createElement(s);js.id=id;js.src=p+'://platform.twitter.com/widgets.js';fjs.parentNode.insertBefore(js,fjs);}}(document, 'script', 'twitter-wjs');</script>
+        <div id="fb-root"></div>
+        <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "//connect.facebook.net/es_LA/sdk.js#xfbml=1&version=v2.4";
+          fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));</script>
+        <div ng-view class="fullHeight"></div>
+        <div footer=""></div> 
+    </body>
+    <script type="text/javascript">
+        document.head = document.head || document.getElementsByTagName('head')[0];
+
+        var isWhite = true;
+        function changeFavicon() {
+            var link = document.createElement('link'),
+            oldLink = document.getElementById('dynamic-favicon');
+            link.id = 'dynamic-favicon';
+            link.rel = 'shortcut icon';
+            if (isWhite){
+                link.href = "/img/handRed.ico";
+                isWhite = false;
+            } else {
+                link.href = "/img/handWhite.ico";
+                isWhite = true;
+            } 
+            if (oldLink) {
+                document.head.removeChild(oldLink);
+            }
+            document.head.appendChild(link);
+        }
+
+        $('body').click(function() {
+           changeFavicon()
+        });
+    </script>
+</html>

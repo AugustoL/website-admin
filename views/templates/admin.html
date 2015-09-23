@@ -1,0 +1,59 @@
+<navbar></navbar>
+<div class="container">
+	<div class="row">
+		<div class="col-sm-12 box">
+			<h2 class="text-center">{{words.drafts}}</h2>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="colum-index text-center">#</th>
+						<th class="colum-date text-center">{{words.date}}</th>
+						<th class="colum-title text-center">{{words.title}}</th>
+						<th class="colum-actions text-center">{{words.actions}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="post in drafts">
+						<th scope="row" class="colum-index">{{$index}}</th>
+						<td class="colum-date">{{post.date | date:'MMM d, y'}}</td>
+						<td class="colum-title">
+							<span ng-show="language=='en'">{{post.titleEn}}</span>
+							<span ng-show="language=='es'">{{post.titleEs}}</span> 
+						</td>
+						<td class="colum-actions">
+							<a class="cursor-pointer pull-left" ng-click="publishPost(post._id)">{{words.publish}}</a>  <a class="cursor-pointer" ng-click="editPost(post._id)">{{words.edit}}</a>  <a class="cursor-pointer pull-right" ng-click="deletePost(post._id)">{{words.delete}}</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	<div class="row">
+		<div class="col-sm-12 box">
+			<h2 class="text-center">{{words.posts}}</h2>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th class="colum-index text-center">#</th>
+						<th class="colum-date text-center">{{words.date}}</th>
+						<th class="colum-title text-center">{{words.title}}</th>
+						<th class="colum-actions text-center">{{words.actions}}</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="post in posts">
+						<th scope="row" class="colum-index">{{$index}}</th>
+						<td class="colum-date">{{post.date | date:'MMM d, y'}}</td>
+						<td class="colum-title">
+							<span ng-show="language=='en'">{{post.titleEn}}</span>
+							<span ng-show="language=='es'">{{post.titleEs}}</span> 
+						</td>
+						<td class="colum-actions text-center">
+							<a class="cursor-pointer pull-left" ng-click="draftPost(post._id)">{{words.toDrafts}}</a>  <a class="cursor-pointer" ng-click="editPost(post._id)">{{words.edit}}</a>  <a class="cursor-pointer pull-right" ng-click="deletePost(post._id)">{{words.delete}}</a>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
