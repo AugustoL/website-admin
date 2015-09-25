@@ -20,8 +20,8 @@
 							<span ng-show="language=='en'">{{post.titleEn}}</span>
 							<span ng-show="language=='es'">{{post.titleEs}}</span> 
 						</td>
-						<td class="colum-actions">
-							<a class="cursor-pointer pull-left" ng-click="publishPost(post._id)">{{words.publish}}</a>  <a class="cursor-pointer" ng-click="editPost(post._id)">{{words.edit}}</a>  <a class="cursor-pointer pull-right" ng-click="deletePost(post._id)">{{words.delete}}</a>
+						<td class="colum-actions text-center">
+							<a class="pull-left" ng-click="publishPost(post._id)">{{words.publish}}</a>  <a ng-click="editPost(post._id)">{{words.edit}}</a>  <a class="pull-right" ng-click="deletePost(post._id)">{{words.delete}}</a>
 						</td>
 					</tr>
 				</tbody>
@@ -49,7 +49,7 @@
 							<span ng-show="language=='es'">{{post.titleEs}}</span> 
 						</td>
 						<td class="colum-actions text-center">
-							<a class="cursor-pointer pull-left" ng-click="draftPost(post._id)">{{words.toDrafts}}</a>  <a class="cursor-pointer" ng-click="editPost(post._id)">{{words.edit}}</a>  <a class="cursor-pointer pull-right" ng-click="deletePost(post._id)">{{words.delete}}</a>
+							<a class="pull-left" ng-click="draftPost(post._id)">{{words.toDrafts}}</a>  <a ng-click="editPost(post._id)">{{words.edit}}</a>  <a class="pull-right" ng-click="deletePost(post._id)">{{words.delete}}</a>
 						</td>
 					</tr>
 				</tbody>

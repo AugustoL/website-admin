@@ -123,7 +123,7 @@ module.exports = function(logger,app,db){
            data.categories = [data.categories.toString()];
         var newPost = new db.posts();
         newPost.create();
-        newPost.edit(data.titleEs,data.titleEn,data.img,data.categories,data.bodyEs,data.body);
+        newPost.edit(data.titleEs,data.titleEn,data.img,data.categories,data.bodyEs,data.bodyEn);
         newPost.save(function (err) {
             if(err) {
                 res.json({success : false});

@@ -185,10 +185,10 @@ footer a:hover{
   max-width: 5px;
 }
 .colum-date{
-  max-width: 15px;
+  width: 30px;
 }
 .colum-actions{
-  max-width: 25px;
+  max-width: 40px;
 }
 
 /* Editor */

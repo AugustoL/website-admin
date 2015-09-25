@@ -42,8 +42,8 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
 			$scope.postTitleEs = promise.data.post.titleEs;
             $scope.postTitleEn = promise.data.post.titleEn;
             $scope.postImage = promise.data.post.img;
-			$scope.postBodyEs = promise.data.post.bodyEs;
-            $scope.postBodyEn = promise.data.post.bodyEn;
+			$scope.postBodyEs = promise.data.post.bodyEs.replace(/<br\s*\/?>/mg,"\n");
+            $scope.postBodyEn = promise.data.post.bodyEn.replace(/<br\s*\/?>/mg,"\n");
             $('.shortBody').html($scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />'));
             $('.longBody').html($scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />')); 
     	})
