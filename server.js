@@ -5,6 +5,7 @@ var mongo = require('mongodb');
 var mongoose = require('mongoose');
 var bodyParser = require('body-parser');
 var async = require('async');
+var basicAuth = require('basic-auth-connect');
 
 //Configuration
 var config = new require('./config')
@@ -38,6 +39,12 @@ app.use(favicon(__dirname + '/public/img/handRed.ico'));
 app.use(express.static('public'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+
+for (var i in args) {
+    if (args[i] == '-server'){
+        app.use(basicAuth(config.httpUser, config.httpPassword));
+    }
+}
 
 //Schemas
 require('./schemas/posts')(db,logger);
