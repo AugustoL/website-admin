@@ -36,7 +36,7 @@ app.engine('html', require('ejs').renderFile);
 app.set('view engine', 'html');
 app.use(favicon(__dirname + '/public/img/handWhite.ico'));  
 app.use(favicon(__dirname + '/public/img/handRed.ico')); 
-app.use(express.static('public'));
+app.use('/public',express.static('public'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 

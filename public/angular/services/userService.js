@@ -5,7 +5,8 @@ angular.module('ALapp.services').factory('userService', ['$http', function ($htt
 
     //Get Posts
     factory.getPosts= function (findBy,skip,sort) {
-        var promise = $http({method: 'GET',
+        var promise = $http({
+            method: 'GET',
             url: '/getPosts',
             params: { findBy : findBy, skip : skip, sort : sort }
         });
@@ -13,7 +14,8 @@ angular.module('ALapp.services').factory('userService', ['$http', function ($htt
     }
 
     factory.getMonths= function () {
-        var promise = $http({method: 'GET',
+        var promise = $http({
+            method: 'GET',
             url: '/getMonths',
             params: {}
         });
@@ -30,7 +32,8 @@ angular.module('ALapp.services').factory('userService', ['$http', function ($htt
 
     //Get Post by id
     factory.getPost= function (id) {
-        var promise = $http({method: 'GET',
+        var promise = $http({
+            method: 'GET',
             url: '/getPost',
             params: { id : id }
         });

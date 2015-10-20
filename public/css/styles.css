@@ -8,7 +8,7 @@ html {
 body {
   font-family: myriad, sans-serif;
   font-size: 17px;
-  background-image: url("/img/background.png");
+  background-image: url("/public/img/background.png");
   background-position:top center;
   background-size:cover;
   background-repeat: repeat-y;
