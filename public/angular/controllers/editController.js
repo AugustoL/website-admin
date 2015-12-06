@@ -5,14 +5,13 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
         $scope.previewLang = 'en';
     $scope.words = sessionService.getStrings();
 	$scope.postDate = new Date();
-    $scope.postCategories = "";
+    $scope.postCategories = [];
     $scope.postTitleEs = "";
     $scope.postTitleEn = "";
     $scope.postImage = "";
     $scope.postBodyEs = "";
     $scope.postBodyEn = "";
     $scope.validCats = ["Travel","Music","Bitcoin","Linux","Programing","Other","Games","Movies","Series"];
-    $scope.catsOk = false;
     $scope.imgSize = 's';
 
     $scope.$watch('previewLang', function(newValue,oldValue) {
@@ -27,47 +26,33 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
         }
     });
     
-    if ($routeParams.id){
-    	userService.getPost($routeParams.id).then(function(promise){
-    		console.log(promise.data);
-    		$scope.postDate = promise.data.post.date;
-            if (promise.data.post.categories.length > 0){
-                $scope.postCategories = promise.data.post.categories[0];
-                for (var i = 1; i < promise.data.post.categories.length; i++) {
-                    $scope.postCategories = $scope.postCategories+","+promise.data.post.categories[i];
+    userService.getCategories().then(function(promise){
+        for (var i = 0; i < promise.data.length; i++) {
+            $scope.postCategories.push({ name : promise.data[i].nameEn, selected : false });
+        };
+        console.log($scope.postCategories);
+        if ($routeParams.id){
+            userService.getPost($routeParams.id).then(function(promise){
+                console.log(promise.data);
+                $scope.postDate = promise.data.post.date;
+                for (var i = 0; i < $scope.postCategories.length; i++) {
+                    for (var z = 0; z < promise.data.post.categories.length; z++) {
+                        if (promise.data.post.categories[z] == $scope.postCategories[i].name)
+                            $scope.postCategories[i].selected = true;
+                    };
                 };
-            } else {
-                $scope.postCategories = promise.data.post.categories[0];
-            }
-			$scope.postTitleEs = promise.data.post.titleEs;
-            $scope.postTitleEn = promise.data.post.titleEn;
-            $scope.postImage = promise.data.post.img;
-			$scope.postBodyEs = promise.data.post.bodyEs.replace(/<br\s*\/?>/mg,"\n");
-            $scope.postBodyEn = promise.data.post.bodyEn.replace(/<br\s*\/?>/mg,"\n");
-            $('.shortBody').html($scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />'));
-            $('.longBody').html($scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />')); 
-    	})
-    }
-
-    $scope.$watch('postCategories', function(newValue,oldValue) {
-        $scope.catsOk = true;
-        if (newValue&&newValue.indexOf(',') > -1)
-            angular.forEach(newValue.split(','), function(cat){
-                if ($scope.validCats.indexOf(cat) < 0)
-                    $scope.catsOk = false;  
+                $scope.postTitleEs = promise.data.post.titleEs;
+                $scope.postTitleEn = promise.data.post.titleEn;
+                $scope.postImage = promise.data.post.img;
+                $scope.postBodyEs = promise.data.post.bodyEs.replace(/<br\s*\/?>/mg,"\n");
+                $scope.postBodyEn = promise.data.post.bodyEn.replace(/<br\s*\/?>/mg,"\n");
+                $('.shortBody').html($scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />'));
+                $('.longBody').html($scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />')); 
             })
-        else
-            if ($scope.validCats.indexOf(newValue) < 0)
-                $scope.catsOk = false;  
-        console.log($scope.catsOk);
+        }
     });
 
-    $scope.$watch('catsOk', function(newValue,oldValue) {
-        if (newValue)
-            $("#editButton").prop('disabled', false);
-        else
-            $("#editButton").prop('disabled', true);
-    });
+    
 
     $scope.triggerPreview = function(preview){
         console.log(preview);
@@ -85,7 +70,12 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
     }
 
     $("#editButton").on('click', function(){
-    	userService.editPost($scope.postTitleEs,$scope.postTitleEn,$scope.postImage,$scope.postCategories,$scope.postBodyEs.replace(/(?:\r\n|\r|\n)/g, '<br />'),$scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />'),$routeParams.id).then(function(promise){
+        var postCats = [];
+        for (var i = 0; i < $scope.postCategories.length; i++) {
+            if ($scope.postCategories[i].selected)
+                postCats.push($scope.postCategories[i].name);
+        };
+    	userService.editPost($scope.postTitleEs,$scope.postTitleEn,$scope.postImage,postCats,$scope.postBodyEs.replace(/(?:\r\n|\r|\n)/g, '<br />'),$scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />'),$routeParams.id).then(function(promise){
     		console.log(promise.data);
             if (promise.data.success){
                 $location.path('/admin');

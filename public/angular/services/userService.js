@@ -24,8 +24,7 @@ angular.module('ALapp.services').factory('userService', ['$http', function ($htt
 
     factory.getCategories= function () {
         var promise = $http({method: 'GET',
-            url: '/getCategories',
-            params: {}
+            url: '/getCategories'
         });
         return promise;
     }

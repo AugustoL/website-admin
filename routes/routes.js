@@ -117,10 +117,6 @@ module.exports = function(logger,app,db){
     module.createPost = function(req,res){
         var data = req.query;
         logger.log('Creating post..');
-        if (data.categories.indexOf(',')>-1)
-            data.categories = data.categories.split(',');
-        else
-           data.categories = [data.categories.toString()];
         var newPost = new db.posts();
         newPost.create();
         newPost.edit(data.titleEs,data.titleEn,data.img,data.categories,data.bodyEs,data.bodyEn);
