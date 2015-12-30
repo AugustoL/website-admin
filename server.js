@@ -14,7 +14,7 @@ var config = new require('./config')
 var args = process.argv.slice(2);
 
 //Logger
-var logger = new require('./logger')(config.logLevel);
+var logger = new require('just-a-logger')(config.logLevel,__dirname+'/logs');
 
 //Connect
 mongoose.connect(config.dbURI);

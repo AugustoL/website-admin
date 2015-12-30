@@ -67,14 +67,11 @@ module.exports = function(logger,app,db){
     // Values on query: {formDate,page}
     module.getPosts = function(req,res){
         var data = req.query;
-        logger.log('Find by:');
-        logger.log(data.findBy);
+        logger.log('Find by: ',data.findBy);
         var toReturn = {};
         if (data.skip == -10){
-            logger.log('lastpage')
             db.posts.count({}, function( err, count){
                 var lastPage = Math.floor(count/10);
-                logger.log(lastPage)
                 db.posts.find(JSON.parse(data.findBy)).sort(data.sort).skip(lastPage*10).limit(10).exec(function(err, result){
                     if (result)
                         res.json({success : true, lastPage : lastPage, posts : result });
@@ -96,7 +93,7 @@ module.exports = function(logger,app,db){
     // Values on query: {id}
     module.getPost = function(req,res){
         var data = req.query;
-        logger.log('Getting post '+data.id);
+        logger.log('Getting post: ',data.id);
         var toReturn = {};
         db.posts.findOne({'_id' : data.id}, {}, function (err, post) {
             if (post)
@@ -122,7 +119,8 @@ module.exports = function(logger,app,db){
         newPost.edit(data.titleEs,data.titleEn,data.img,data.categories,data.bodyEs,data.bodyEn);
         newPost.save(function (err) {
             if(err) {
-                res.json({success : false});
+                logger.error(err.toString());
+                res.json({success : false, error : err.toString()});
             } else {
                 res.json({success : true, postID : newPost.id});
             }
@@ -133,7 +131,7 @@ module.exports = function(logger,app,db){
     // Values on query: {title,image,text}
     module.editPost = function(req,res){
         var data = req.query;
-        logger.log('Editing post '+data.id);
+        logger.log('Editing post: ',data.id);
         if (data.categories.indexOf(',')>-1)
             data.categories = data.categories.split(',');
         else
@@ -162,8 +160,8 @@ module.exports = function(logger,app,db){
             }
         ], function (err, result) {
             if (err){
-                logger.error(err);
-                res.json({success : false, message: err});
+                logger.error(err.toString());
+                res.json({success : false, error: err.toString()});
             } else {
                 res.json({success : true, message: 'Post edited'});
             }
@@ -174,7 +172,7 @@ module.exports = function(logger,app,db){
     // Values on query: {title,image,text}
     module.publishPost = function(req,res){
         var data = req.query;
-        logger.log('Publishing post '+data.id);
+        logger.log('Publishing post: ',data.id);
         async.waterfall([
             function(callback) {
                 db.posts.findOne({'_id' : data.id}, {}, function (err, post) {
@@ -243,8 +241,8 @@ module.exports = function(logger,app,db){
             }
         ], function (err, result) {
             if (err){
-                logger.error(err);
-                res.json({success : false, message: err});
+                logger.error(err.toString());
+                res.json({success : false, error: err.toString()});
             } else {
                 res.json({success : true, message: 'Post published'});
             }
@@ -255,7 +253,7 @@ module.exports = function(logger,app,db){
     // Values on query: {title,image,text}
     module.draftPost = function(req,res){
         var data = req.query;
-        logger.log('Moving to drafts post '+data.id);
+        logger.log('Moving to drafts post: ',data.id);
         async.waterfall([
             function(callback) {
                 db.posts.findOne({'_id' : data.id}, {}, function (err, post) {
@@ -319,8 +317,8 @@ module.exports = function(logger,app,db){
             }
         ], function (err, result) {
             if (err){
-                logger.error(err);
-                res.json({success : false, message: err});
+                logger.error(err.toString());
+                res.json({success : false, error: err.toString()});
             } else {
                 res.json({success : true, message: 'Post is draft now'});
             }
@@ -331,7 +329,7 @@ module.exports = function(logger,app,db){
     // Values on query: {title,image,text}
     module.deletePost = function(req,res){
         var data = req.query;
-        logger.log('Removing post '+data.id);
+        logger.log('Removing post: ',data.id);
         async.waterfall([
             function(callback) {
                 db.posts.findOne({'_id' : data.id}, {}, function (err, post) {
@@ -393,8 +391,8 @@ module.exports = function(logger,app,db){
             }
         ], function (err, result) {
             if (err){
-                logger.error(err);
-                res.json({success : false, message: err});
+                logger.error(err.toString());
+                res.json({success : false, error: err.toString()});
             } else {
                 res.json({success : true, message: 'Post removed'});
             }
@@ -426,48 +424,49 @@ module.exports = function(logger,app,db){
                 callback(null);
             }
         }, function(err) {
-            if (err)
-                res.json({success : false, message : err});
-            res.json({success : true, message : 'Imgs uploaded'});
+            if (err){
+                logger.error(err.toString())
+                res.json({success : false, error : err.toString()});
+            } else
+                res.json({success : true, message : 'Imgs uploaded'});
         });
         
     }
 
     module.deleteImage = function(req,res){
         var data = req.query;
-        logger.log('Deleting image: '+data.name);
+        logger.log('Deleting image: ',data.name);
         db.images.findOne({name : data.name}, function (err, image) {
             if (err) 
-                res.json({success : false, message :err});
+                res.json({success : false, error :err.toString()});
             if (image){
                 image.remove(function (err) {
                     if(err)
-                        res.json({success : false, message :err});
+                        res.json({success : false, error :err.toString()});
                     else
                         res.json({success : true, message : 'Img removed'});
                 }); 
             } else {
-                res.json({success : false, message :'Image dont exist'});
+                res.json({success : false, error :'Image dont exist'});
             }
         });
     }
 
     module.changeNameImg = function(req,res){
         var data = req.query;
-        logger.log(data);
         db.images.findOne({"_id" : data.id}, function (err, image) {
             if (err) 
-                res.json({success : false, message :err});
+                res.json({success : false, error :err.toString()});
             if (image){
                 image.name = data.name;
                 image.save(function (err) {
                     if(err)
-                        res.json({success : false, message :err});
+                        res.json({success : false, error :err.toString()});
                     else
                         res.json({success : true, message : 'Img name changed'});
                 }); 
             } else {
-                res.json({success : false, message :'Image dont exist'});
+                res.json({success : false, error :'Image dont exist'});
             }
         });
     }
@@ -476,7 +475,7 @@ module.exports = function(logger,app,db){
         var data = req.query;
         db.images.findOne({name : data.name}, function (err, image) {
             if (err)
-                res.json({success : false, message :err});
+                res.json({success : false, error :err.toString()});
             if (image){
                 if (image.data.indexOf('data:image/jpeg;base64,') > -1) {
                     var img = new Buffer(image.data.replace('data:image/jpeg;base64,',''), 'base64');
@@ -494,7 +493,7 @@ module.exports = function(logger,app,db){
                     res.end(img);
                 }
             } else {
-                res.json({success : false, message :'Image dont exist'});
+                res.json({success : false, error :'Image dont exist'});
             }
         });
     }
@@ -502,7 +501,7 @@ module.exports = function(logger,app,db){
     module.getImages = function(req,res){
         db.images.find({}).select('name').exec(function(err, images){
             if(err)
-                res.json({success : false, message : err});
+                res.json({success : false, error : err.toString()});
             else
                 res.json({success : true, images : images});
         });        

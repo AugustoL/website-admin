@@ -21,7 +21,6 @@ angular.module('ALapp.controllers').controller('imagesController',['$scope','use
 	}
 
 	userService.getImages().then(function(promise){
-		console.log(promise.data);
     	if (promise.data.success)
     		$scope.images = promise.data.images;
     });

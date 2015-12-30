@@ -13,7 +13,6 @@ angular.module('ALapp.services').factory('sessionService', ['localStorageService
     }
 
     factory.getStrings = function(lang){
-        console.log('Getting strings');
         if (lang && (lang == 'es' || lang == 'en')){
             localStorageService.set('lang',lang);
             return getWords(lang);

@@ -1,5 +1,3 @@
-/****************************************************** ALL ******************************************************/
-
 html {
   position: relative;
   min-height: 100%;
@@ -22,14 +20,6 @@ body {
 }
 
 /* HOME */
-
-.searchBox{
-  margin-bottom: 5px;
-}
-.profile-about{
-  max-width: 100%;
-  border-radius: 3px;
-}
 .profilePost{
   width: 120px;
   height: 120px;
@@ -135,37 +125,15 @@ a{
   text-decoration: none;
 }
 
-/* FOOTER */
-footer{
-  position: absolute;
-  width:100%;
-  text-align: center;
-  font-size: 14px;
-  word-spacing: 40px;
-  background-color: #F7FEFF;
-  height: 25px;
-  padding-top: 2px;
-  bottom: 0;
-}
-.spaceFooter{
-  cursor:pointer;
-}
-footer a{
-  text-decoration: none;
-}
-footer a:hover{
-  text-decoration: underline;
-}
-
 /* Admin */
 .colum-index{
-  max-width: 5px;
+  width: 10px;
 }
 .colum-date{
-  width: 30px;
+  width: 150px;
 }
 .colum-actions{
-  max-width: 40px;
+  width: 270px;
 }
 
 /* Editor */
@@ -181,14 +149,9 @@ footer a:hover{
   resize: vertical;
   margin-bottom: 5px;
 }
-
-/* GAME */
-#game {
-  background-color: #000205;
-}
-canvas{
-  margin: auto;
-  clear: both;
+.margin-checkbox{
+  margin-left: 2px;
+  margin-right: 2px;
 }
 
 /* Useful Classes */

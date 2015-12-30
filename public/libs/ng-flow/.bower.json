@@ -30,6 +30,5 @@
   },
   "_source": "git://github.com/flowjs/ng-flow.git",
   "_target": "~2",
-  "_originalSource": "ng-flow",
-  "_direct": true
+  "_originalSource": "ng-flow"
 }

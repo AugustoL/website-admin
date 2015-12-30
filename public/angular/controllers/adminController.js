@@ -6,7 +6,6 @@ angular.module('ALapp.controllers').controller('adminController',['$scope','user
 	$scope.drafts = [];
 	
     userService.getPosts({},0,'-date').then(function(promise){
-    	console.log(promise.data);
     	if (promise.data.posts){
 			for (var i = promise.data.posts.length - 1; i >= 0; i--) {
 				if  (promise.data.posts[i].draft)

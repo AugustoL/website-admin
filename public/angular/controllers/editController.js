@@ -11,7 +11,6 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
     $scope.postImage = "";
     $scope.postBodyEs = "";
     $scope.postBodyEn = "";
-    $scope.validCats = ["Travel","Music","Bitcoin","Linux","Programing","Other","Games","Movies","Series"];
     $scope.imgSize = 's';
 
     $scope.$watch('previewLang', function(newValue,oldValue) {
@@ -30,10 +29,8 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
         for (var i = 0; i < promise.data.length; i++) {
             $scope.postCategories.push({ name : promise.data[i].nameEn, selected : false });
         };
-        console.log($scope.postCategories);
         if ($routeParams.id){
             userService.getPost($routeParams.id).then(function(promise){
-                console.log(promise.data);
                 $scope.postDate = promise.data.post.date;
                 for (var i = 0; i < $scope.postCategories.length; i++) {
                     for (var z = 0; z < promise.data.post.categories.length; z++) {
@@ -50,12 +47,9 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
                 $('.longBody').html($scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />')); 
             })
         }
-    });
-
-    
+    });  
 
     $scope.triggerPreview = function(preview){
-        console.log(preview);
         if (preview == 'short'){
             if ($("#shortPreview").is(":visible"))
                 $("#shortPreview").hide();
@@ -76,7 +70,6 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
                 postCats.push($scope.postCategories[i].name);
         };
     	userService.editPost($scope.postTitleEs,$scope.postTitleEn,$scope.postImage,postCats,$scope.postBodyEs.replace(/(?:\r\n|\r|\n)/g, '<br />'),$scope.postBodyEn.replace(/(?:\r\n|\r|\n)/g, '<br />'),$routeParams.id).then(function(promise){
-    		console.log(promise.data);
             if (promise.data.success){
                 $location.path('/admin');
             }
@@ -94,8 +87,6 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
     };
 
     $scope.addImg = function(lang){
-        console.log($scope.imgSize);
-        console.log($scope.imgName);
         if (($scope.imgSize == 's' ||$scope.imgSize == 'm' || $scope.imgSize == 'l' ||$scope.imgSize == 'xl') && ($scope.imgName.length > 0) ){
             var caretPos = document.getElementById("bodyInput"+lang).selectionStart;
             var textAreaTxt = jQuery("#bodyInput"+lang).val();
@@ -106,8 +97,6 @@ angular.module('ALapp.controllers').controller('editController',['$scope','$rout
     }
 
     $scope.addVideo = function(lang){
-        console.log($scope.videoName);
-        console.log($scope.videoCode);
         if ($scope.videoCode.length > 0){
             var caretPos = document.getElementById("bodyInput"+lang).selectionStart;
             var textAreaTxt = jQuery("#bodyInput"+lang).val();
