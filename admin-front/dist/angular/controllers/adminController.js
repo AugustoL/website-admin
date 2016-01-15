@@ -1,11 +1,13 @@
 angular.module('ALapp.controllers').controller('adminController',['$scope','userService','$location','$window','sessionService', function($scope,userService,$location,$window,sessionService){
 	console.log("adminController init");
 	$scope.words = sessionService.getStrings();
-    $scope.previewLang = $scope.language;
+    $scope.previewLang = sessionService.getItem('lang');
     $scope.posts = [];
 	$scope.drafts = [];
+	$scope.backendDomain = "http://"+$window.location.hostname+":3011";
 	
     userService.getPosts({},0,'-date').then(function(promise){
+    	console.log(promise);
     	if (promise.data.posts){
 			for (var i = promise.data.posts.length - 1; i >= 0; i--) {
 				if  (promise.data.posts[i].draft)

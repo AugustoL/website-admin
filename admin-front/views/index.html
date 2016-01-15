@@ -30,8 +30,10 @@
         <script type="text/javascript" src="/dist/angular/appCore.js"></script>
         <script type="text/javascript" src="/dist/angular/directives/navbar.js"></script>
         <script type="text/javascript" src="/dist/angular/directives/image.js"></script>
+        <script type="text/javascript" src="/dist/angular/directives/auth.js"></script>
         <script type="text/javascript" src="/dist/angular/services/userService.js"></script> 
         <script type="text/javascript" src="/dist/angular/services/sessionService.js"></script>
+        <script type="text/javascript" src="/dist/angular/controllers/authController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/navBarController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/adminController.js"></script>
         <script type="text/javascript" src="/dist/angular/controllers/createController.js"></script>
@@ -50,6 +52,7 @@
           fjs.parentNode.insertBefore(js, fjs);
         }(document, 'script', 'facebook-jssdk'));</script>
         <div ng-view class="fullHeight"></div>
+        <div auth=""></div>
     </body>
     <script type="text/javascript">
         document.head = document.head || document.getElementsByTagName('head')[0];

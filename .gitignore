@@ -1,7 +1,6 @@
 admin-front/node_modules
 admin-back/node_modules
 admin-front/logs/*.html
-admin-front/config.js
 admin-front/dist/libs
 admin-back/logs/*.html
-admin-back/config.js
+config.js

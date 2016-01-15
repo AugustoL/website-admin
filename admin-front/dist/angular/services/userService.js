@@ -1,25 +1,34 @@
 
-angular.module('ALapp.services').factory('userService', ['$http','$window', function ($http,$window) {
+angular.module('ALapp.services').factory('userService', ['$http','$window','sessionService', function ($http,$window,sessionService) {
 
-    console.log(document.location);
+    var auth = sessionService.getItem('auth') || "";
     var backendDomain = "http://"+$window.location.hostname+":3011";
-    $http.defaults.withCredentials = true;
     var factory = {};
-    var headers = { "Authorization" : "Basic Y2hhZG11cnJpczpMZW1ibGVuYWl0b3I4IQ==" };
+    $http.defaults.headers.common.auth = auth.toString();
+
+    function makeRequest(http){
+        var promise = $http(http).then(function successCallback(response) {
+            if (response.data.err == 'bad auth')
+                $('#authModal').modal('show');
+            return response;
+        }, function errorCallback(response) {
+            return response;
+        });
+        return promise;
+    }
 
     //Get Posts
     factory.getPosts= function (findBy,skip,sort) {
-        var promise = $http({
+        var promise = makeRequest({
             method: 'GET',
             url: backendDomain+'/getPosts',
-            params: { findBy : findBy, skip : skip, sort : sort },
-            headers : headers
+            params: { findBy : findBy, skip : skip, sort : sort }
         });
         return promise;
     }
 
     factory.getMonths= function () {
-        var promise = $http({
+        var promise = makeRequest({
             method: 'GET',
             url: backendDomain+'/getMonths',
             params: {}
@@ -28,7 +37,8 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
     }
 
     factory.getCategories= function () {
-        var promise = $http({method: 'GET',
+        var promise = makeRequest({
+            method: 'GET',
             url: backendDomain+'/getCategories'
         });
         return promise;
@@ -36,7 +46,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
 
     //Get Post by id
     factory.getPost= function (id) {
-        var promise = $http({
+        var promise = makeRequest({
             method: 'GET',
             url: backendDomain+'/getPost',
             params: { id : id }
@@ -46,7 +56,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
 
     //Cretae post liek draft only with tytle, then move to edit
     factory.createPost = function(){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/createPost'
         });
@@ -55,7 +65,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
 
     //Create new post
     factory.createPost = function(titleEs,titleEn,img,categories,bodyEs,bodyEn){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/createPost',
             params: { titleEs : titleEs, titleEn : titleEn, img : img, categories : categories, bodyEn : bodyEn, bodyEs : bodyEs}
@@ -65,7 +75,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
 
     //Edit post with id
     factory.editPost = function(titleEs,titleEn,img,categories,bodyEs,bodyEn,id){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/editPost',
             params: { titleEs : titleEs, titleEn : titleEn, img : img, categories : categories, bodyEn : bodyEn, bodyEs : bodyEs, id : id}
@@ -75,7 +85,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
 
     //Publish post with id
     factory.publishPost = function(id){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/publishPost',
             params: { id : id}
@@ -85,7 +95,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
 
     //Make draft post with id
     factory.draftPost = function(id){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/draftPost',
             params: { id : id}
@@ -95,7 +105,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
 
     //Delete post with id
     factory.deletePost = function(id){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/deletePost',
             params: { id : id}
@@ -105,7 +115,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
 
     //Upload imgs
     factory.uploadImages = function(images){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/uploadImages',
             data: { images : images}
@@ -114,7 +124,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
     }
 
     factory.deleteImage = function(name){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/deleteImage',
             params: { name : name }
@@ -123,7 +133,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
     }
 
     factory.changeNameImg = function(id,name){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/changeNameImg',
             params: { id : id, name : name }
@@ -132,7 +142,7 @@ angular.module('ALapp.services').factory('userService', ['$http','$window', func
     }
 
     factory.getImages = function(){
-        var promise = $http({
+        var promise = makeRequest({
             method: 'GET',
             url: backendDomain+'/getImages'
         })

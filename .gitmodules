@@ -1,0 +1,4 @@
+[submodule "admin-back/schemas"]
+	path = admin-back/schemas
+	url = https://github.com/AugustoL/website-schemas
+	branch = master

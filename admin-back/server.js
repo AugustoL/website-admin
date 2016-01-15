@@ -9,7 +9,7 @@ var basicAuth = require('basic-auth-connect');
 var cors = require('cors');
 
 //Configuration
-var config = new require('./config')
+var config = new require('../config')
 
 //Get arguments
 var args = process.argv.slice(2);
@@ -34,25 +34,22 @@ var app = express();
 app.set('port', 3011);
 //Only access from admin
 app.use(function(req,res,next){
-    var ip = req.headers['x-forwarded-for'] || req.connection.remoteAddress;
-    var validIP = '127.0.0.1';
-    if (args.indexOf('-dev') < 0)
-        validIP = '159.203.83.144';
-    console.log(ip+":"+validIP);
-    if (ip.indexOf(validIP) > -1){
-        res.header("Access-Control-Allow-Origin", 'http://admin.augustolemble.com');
-        res.header('Access-Control-Allow-Credentials', true);
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
-        res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin, Authorization");
-    }
-    next();
+    res.header("Access-Control-Allow-Origin", req.headers.origin);
+    res.header('Access-Control-Allow-Credentials', true);
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS');
+    res.header('Access-Control-Allow-Headers', "Origin, X-Requested-With, Content-Type, Accept, Access-Control-Allow-Origin, auth");
+    if (req.headers.auth == (config.httpUser+":"+config.httpPassword))
+        next();
+    else
+        res.json({"err" : "bad auth"});
+    
 });
 
 //Schemas
-require('../schemas/posts')(db,mongoose);
-require('../schemas/months')(db,mongoose);
-require('../schemas/images')(db,mongoose);
-require('../schemas/categories')(db,mongoose);
+require('./schemas/posts')(db,mongoose);
+require('./schemas/months')(db,mongoose);
+require('./schemas/images')(db,mongoose);
+require('./schemas/categories')(db,mongoose);
 
 //Add routes
 require('./routes/routes')(logger,app,db).addRoutes();

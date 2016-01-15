@@ -9,7 +9,7 @@ var grunt = require('grunt');
 var cors = require('cors');
 
 //Configuration
-var config = new require('./config')
+var config = new require('../config')
 
 //Get arguments
 var args = process.argv.slice(2);
@@ -29,7 +29,7 @@ db.once('open', function callback () {
 
 //Launch express
 var app = express();
-process.env.appDomain == 'admin.augustolemble.com';
+process.env.appDomain = 'admin.augustolemble.com';
 
 //Config Express
 app.set('port', (3010));
@@ -41,17 +41,11 @@ app.use(favicon(__dirname + '/dist/img/handRed.ico'));
 app.use('/dist', express.static(__dirname + '/dist'));
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
-
 app.use(basicAuth(config.httpUser, config.httpPassword));
-
+app.use(cors());
 
 //Add routes
 require('./routes/routes')(logger,app,db).addRoutes();
-
-app.use(function(req,res,next){
-    res.header("Access-Control-Allow-Origin", "*");
-    next();
-});
 
 //Start the server
 app.listen(app.get('port'), function() {

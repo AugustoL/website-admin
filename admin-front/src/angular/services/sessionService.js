@@ -5,7 +5,7 @@ angular.module('ALapp.services').factory('sessionService', ['localStorageService
     factory.addItem = function(key, value){
         return localStorageService.set(key, value);
     }
-    factory.getItem = function(key, value){
+    factory.getItem = function(key){
         return localStorageService.get(key);
     }
     factory.removeItem = function(key){
