@@ -26,7 +26,8 @@ var strings = {
 		"longPreview" : "Long Preview",
 		"share" : "Share",
 		"createPost" : "Create Post",
-		"actions" : "Actions"
+		"actions" : "Actions",
+		"comments" : "Comments"
 	},
 	"es": {
 		"language" : "es",
@@ -55,7 +56,8 @@ var strings = {
 		"longPreview" : "Previsualizacion larga",
 		"share" : "Compartir",
 		"createPost" : "Crear Post",
-		"actions" : "Acciones"
+		"actions" : "Acciones",
+		"comments" : "Comentarios"
 	}
 };
 

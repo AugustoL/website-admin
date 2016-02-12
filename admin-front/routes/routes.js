@@ -10,6 +10,7 @@ module.exports = function(logger,app,db){
         app.get('/createPost', module.index);
         app.get('/editPost', module.index);
         app.get('/images', module.index);
+        app.get('/comments', module.index);
   
     }
 

@@ -113,6 +113,16 @@ angular.module('ALapp.services').factory('userService', ['$http','$window','sess
         return promise;
     }
 
+    //Delete comment
+    factory.deleteComment = function(postID,commentID){
+        var promise = makeRequest({
+            method: 'POST',
+            url: backendDomain+'/deleteComment',
+            params: { postID : postID, commentID : commentID }
+        });
+        return promise;
+    }
+
     //Upload imgs
     factory.uploadImages = function(images){
         var promise = makeRequest({

@@ -49,7 +49,7 @@
 							<span ng-show="language=='es'">{{post.titleEs}}</span> 
 						</td>
 						<td class="text-center colum-actions">
-							<a class="pull-left" ng-click="draftPost(post._id)">{{words.toDrafts}}</a>  <a ng-click="editPost(post._id)">{{words.edit}}</a>  <a class="pull-right" ng-click="deletePost(post._id)">{{words.delete}}</a>
+							<a ng-click="draftPost(post._id)">{{words.toDrafts}}</a> - <a ng-href="/comments?id={{post._id}}">{{words.comments}}</a> - <a ng-click="editPost(post._id)">{{words.edit}}</a> - <a ng-click="deletePost(post._id)">{{words.delete}}</a>
 						</td>
 					</tr>
 				</tbody>

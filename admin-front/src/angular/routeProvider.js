@@ -6,6 +6,7 @@ app.config(['$routeProvider', function ($routeProvider) {
     $routeProvider.when('/createPost',{ templateUrl: '/templates/createPost.html', controller : 'createController' })
     $routeProvider.when('/editPost',{ templateUrl: '/templates/editPost.html', controller : 'editController' });
     $routeProvider.when('/images',{ templateUrl: '/templates/images.html', controller : 'imagesController' });
+    $routeProvider.when('/comments',{ templateUrl: '/templates/comments.html', controller : 'commentsController' });
     //Otherwise
     $routeProvider.otherwise({redirectTo: '/'});
 

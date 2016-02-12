@@ -21,6 +21,7 @@ module.exports = function(logger,app,db){
         app.post('/draftPost', module.draftPost);
         app.post('/publishPost', module.publishPost);
         app.post('/deletePost', module.deletePost);
+        app.post('/deleteComment', module.deleteComment);
     }
 
     // Get months 
@@ -45,8 +46,6 @@ module.exports = function(logger,app,db){
     // Values on query: {formDate,page}
     module.getPosts = function(req,res){
         var data = req.query;
-        logger.log('Find by: '+data.findBy);
-        var toReturn = {};
         if (data.skip == -10){
             db.posts.count({}, function( err, count){
                 var lastPage = Math.floor(count/10);
@@ -71,8 +70,6 @@ module.exports = function(logger,app,db){
     // Values on query: {id}
     module.getPost = function(req,res){
         var data = req.query;
-        logger.log('Getting post: '+data.id);
-        var toReturn = {};
         db.posts.findOne({'_id' : data.id}, {}, function (err, post) {
             if (post)
                 res.json({success : true, post : post });
@@ -304,7 +301,7 @@ module.exports = function(logger,app,db){
     }
 
     // Delete post 
-    // Values on query: {title,image,text}
+    // Values on query: {id}
     module.deletePost = function(req,res){
         var data = req.query;
         logger.log('Removing post: '+data.id);
@@ -376,6 +373,29 @@ module.exports = function(logger,app,db){
             }
         });
     }
+
+    // Delete comment 
+    // Values on query: {postID, commentID}
+    module.deleteComment = function(req,res){
+        var data = req.query;
+        db.posts.findOne({'_id' : data.postID}, {}, function (err, post) {
+            if (err)
+                res.json({success : false, message : err.toString() });
+            else if (post){
+                for (var i = 0; i < post.comments.length; i++) {
+                    if (post.comments[i].id == data.commentID)
+                        post.comments.splice(i,1);
+                }
+                post.save(function(err){
+                    if (err)
+                        res.json({success : false, message : err.toString() });
+                    res.json({success : true});
+                })
+            } else {
+                res.json({success : false, message : 'Post wasnt found' });
+            }
+        });
+    };
 
 
     //Image requests

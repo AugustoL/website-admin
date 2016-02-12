@@ -1,10 +1,4 @@
-angular.module('ALapp.controllers').controller('navBarController',['$scope','sessionService','$window', function($scope,sessionService,$window){
-    console.log("navBarController init");
-    $scope.words = sessionService.getStrings();
-    $scope.language = $scope.words.language;
-    $scope.backendDomain = "http://"+$window.location.hostname+":3011";
-    $scope.changeLang = function(lang){
-    	$scope.words = sessionService.getStrings(lang);
-    	$scope.language = lang;
-    }
-}]);
+/*
+ AugustoLemble 2016-02-12 
+*/
+angular.module("ALapp.controllers").controller("navBarController",["$scope","sessionService","$window",function(a,b,c){console.log("navBarController init"),a.words=b.getStrings(),a.language=a.words.language,a.backendDomain="http://"+c.location.hostname+":3011",a.changeLang=function(c){a.words=b.getStrings(c),a.language=c}}]);

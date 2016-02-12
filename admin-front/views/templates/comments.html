@@ -1,0 +1,14 @@
+<navbar></navbar>
+<div class="container">
+	<div class="row">
+		<div class="col-xs-12 box">
+			<h2 class="text-center">{{words.comments}} </h2>
+			<blockquote ng-repeat="comment in comments">
+				<p>{{comment.text}}</p>
+				<small>{{comment.name}} - <cite title="Source Title">{{comment.date | date:'MMM d, y, hh:mm'}}</cite></small>
+				<button class="btn btn-default" ng-click="deleteComment(comment)">{{words.delete}}</button>
+			</blockquote>
+		</div>
+	</div>
+</div>
+
