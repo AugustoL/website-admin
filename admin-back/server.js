@@ -32,6 +32,8 @@ var app = express();
 
 //Config Express
 app.set('port', 3011);
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 //Only access from admin
 app.use(function(req,res,next){
     res.header("Access-Control-Allow-Origin", req.headers.origin);
@@ -42,7 +44,6 @@ app.use(function(req,res,next){
         next();
     else
         res.json({"err" : "bad auth"});
-    
 });
 
 //Schemas

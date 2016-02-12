@@ -31,6 +31,7 @@ angular.module('ALapp.controllers').controller('imagesController',['$scope','use
 	            $scope.toUpload.push($(this).attr("src").toString());
 	        }
 		});
+		console.log($scope.toUpload);
 		userService.uploadImages($scope.toUpload).then(function(promise){
 	    	if (promise.data.success) {
 	            $window.location.reload();

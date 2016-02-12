@@ -128,7 +128,10 @@ angular.module('ALapp.services').factory('userService', ['$http','$window','sess
         var promise = makeRequest({
             method: 'POST',
             url: backendDomain+'/uploadImages',
-            data: { images : images}
+            data: { images : images },
+            headers: {
+                'Content-Type': 'application/json'
+            }
         });
         return promise;
     }
