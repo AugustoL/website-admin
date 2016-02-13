@@ -1,4 +1,0 @@
-/*
- AugustoLemble 2016-02-12 
-*/
-angular.module("ALapp.services").factory("sessionService",["localStorageService","$http","$rootScope",function(a,b,c){var d={};return d.addItem=function(b,c){return a.set(b,c)},d.getItem=function(b){return a.get(b)},d.removeItem=function(b){a.remove(b)},d.getStrings=function(b){if(!b||"es"!=b&&"en"!=b){if("en"==a.get("lang")||"es"==a.get("lang"))return getWords(a.get("lang"));var c=navigator.language||navigator.userLanguage;return 0===c.indexOf("es")?(a.set("lang","es"),getWords("es")):(a.set("lang","en"),getWords("en"))}return a.set("lang",b),getWords(b)},d}]);

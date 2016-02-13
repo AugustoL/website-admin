@@ -1,4 +1,0 @@
-/*
- AugustoLemble 2016-02-12 
-*/
-angular.module("ALapp.controllers").controller("adminController",["$scope","userService","$location","$window","sessionService",function(a,b,c,d,e){console.log("adminController init"),a.words=e.getStrings(),a.previewLang=e.getItem("lang"),a.posts=[],a.drafts=[],a.backendDomain="http://"+d.location.hostname+":3011",b.getPosts({},0,"-date").then(function(b){if(console.log(b),b.data.posts)for(var c=b.data.posts.length-1;c>=0;c--)b.data.posts[c].draft?a.drafts.push(b.data.posts[c]):a.posts.push(b.data.posts[c])}),a.publishPost=function(a){b.publishPost(a).then(function(b){b.data.success&&c.path("/post").search({id:a})})},a.draftPost=function(a){b.draftPost(a).then(function(a){a.data.success&&d.location.reload()})},a.editPost=function(a){c.path("/editPost").search({id:a})},a.deletePost=function(a){b.deletePost(a).then(function(a){a.data.success&&d.location.reload()})}}]);

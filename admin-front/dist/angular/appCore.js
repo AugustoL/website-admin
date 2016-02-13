@@ -1,4 +1,0 @@
-/*
- AugustoLemble 2016-02-12 
-*/
-var app=angular.module("ALapp",["ALapp.controllers","ALapp.directives","ALapp.services","ngRoute","flow","LocalStorageModule"]);angular.module("ALapp.controllers",["flow"]),angular.module("ALapp.services",["LocalStorageModule"]),angular.module("ALapp.directives",[]),app.config(["localStorageServiceProvider",function(a){a.setPrefix("augustol").setStorageType("localStorage").setNotify(!0,!0)}]),app.filter("msToMinutes",function(){return function(a){var b=Math.floor(a/1e3),c=3600,d=60,e=Math.floor(b%c/d),f=Math.floor(b%d),g="";return 10>f&&(f="0"+f),10>e&&(e="0"+e),g=e+":"+f}});

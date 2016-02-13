@@ -1,8 +1,8 @@
-admin-front/node_modules
-admin-front/logs/*.html
-admin-front/dist/libs
-admin-front/dist/angular
-admin-front/dist/css
-admin-back/node_modules
-admin-back/logs/*.html
+front/node_modules
+front/logs/*.html
+front/dist/libs
+front/dist/angular
+front/dist/css
+back/node_modules
+back/logs/*.html
 config.js

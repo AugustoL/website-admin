@@ -1,4 +1,0 @@
-/*
- AugustoLemble 2016-02-12 
-*/
-app.config(["$routeProvider",function(a){a.when("/",{templateUrl:"/templates/admin.html",controller:"adminController"}),a.when("/createPost",{templateUrl:"/templates/createPost.html",controller:"createController"}),a.when("/editPost",{templateUrl:"/templates/editPost.html",controller:"editController"}),a.when("/images",{templateUrl:"/templates/images.html",controller:"imagesController"}),a.when("/comments",{templateUrl:"/templates/comments.html",controller:"commentsController"}),a.otherwise({redirectTo:"/"})}]).config(["$locationProvider",function(a){a.html5Mode(!0)}]);

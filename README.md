@@ -10,10 +10,10 @@ git clone https://github.com/AugustoL/website-admin
 cd website-admin
 git submodule init
 git submodule update
-cd admin-back
+cd back
 npm install
 cd ..
-cd admin-front
+cd front
 npm install && bower install
 cd ..
 ```
